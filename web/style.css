@@ -1,0 +1,142 @@
+@page {
+  size: A4;
+  margin: 18mm 20mm;
+}
+
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #252b33;
+  background: #fff;
+  font-size: 10.5pt;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+}
+
+.cv {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 38px 44px;
+}
+
+.cv-header {
+  padding-bottom: 18px;
+  border-bottom: 1px solid #cbd1d8;
+  margin-bottom: 24px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 7px;
+  color: #202a36;
+  font-size: 25pt;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+address {
+  color: #515c68;
+  font-size: 10pt;
+  font-style: normal;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+section {
+  margin-bottom: 22px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #d9dee4;
+  color: #34475b;
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+}
+
+h3 {
+  margin-bottom: 2px;
+  color: #252b33;
+  font-size: 10.5pt;
+  font-weight: 600;
+}
+
+h3 span {
+  color: #515c68;
+  font-weight: 400;
+}
+
+p {
+  margin-bottom: 7px;
+}
+
+.date {
+  margin-bottom: 7px;
+  color: #5c6671;
+  font-size: 9.5pt;
+}
+
+.experience-item,
+.education-item {
+  margin-bottom: 14px;
+  break-inside: avoid;
+}
+
+ul {
+  margin: 5px 0 0;
+  padding-left: 19px;
+}
+
+li {
+  margin-bottom: 3px;
+  padding-left: 2px;
+}
+
+li::marker {
+  color: #778391;
+}
+
+strong {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 600px) {
+  .cv {
+    padding: 28px 22px;
+  }
+
+  h1 {
+    font-size: 22pt;
+  }
+}
+
+@media print {
+  .cv {
+    max-width: none;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+}

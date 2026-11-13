@@ -1,0 +1,40 @@
+name: Jane Doe 
+phone: "+123-456-7890"
+email: jane.doe@example.com
+
+summary: Highly motivated and detail-oriented software engineer with a strong foundation in web development and programming. Seeking an internship opportunity to apply my skills and contribute to innovative projects.
+
+languages: 
+  - English 
+  - French
+  - Spanish
+
+experience: 
+  - company: ABC Corp
+    position: Software Engineer Intern 
+    duration: Sep 2026 - Present
+    responsibilities: 
+      - Developed and maintained web applications using JavaScript and Python.
+      - Collaborated with cross-functional teams to define project requirements.
+      - Implemented automated testing procedures to improve code quality.
+  - company: XYZ Ltd
+    position: Barista
+    duration: Jan 2025 - Aug 2026
+    responsibilities: 
+      - Prepared and served beverages to customers in a fast-paced environment.
+      - Maintained cleanliness and organization of the café area.
+      - Provided excellent customer service and handled transactions efficiently.
+  
+education:
+  - institution: University of Technology
+    degree: Bachelor of Science in Computer Science
+    graduation_year: 2026
+
+skills:
+  - Programming Languages: Python, JavaScript, Java
+  - Web Development: HTML, CSS, React
+  - Database Management: SQL, MongoDB
+  - Version Control: Git, GitHub
+  - Problem Solving and Analytical Thinking
+
+

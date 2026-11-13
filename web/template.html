@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ data["name"]|e }} | CV</title>
+    <link rel="stylesheet" href="../web/style.css">
+  </head>
+  <body>
+    <main class="cv">
+      <header class="cv-header">
+        <h1>{{ data["name"]|e }}</h1>
+        <address>
+          <a href="tel:{{ data['phone']|e }}">{{ data["phone"]|e }}</a>
+          <span aria-hidden="true"> · </span>
+          <a href="mailto:{{ data['email']|e }}">{{ data["email"]|e }}</a>
+        </address>
+      </header>
+
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Professional Summary</h2>
+        <p>{{ data["summary"]|e }}</p>
+      </section>
+
+      <section aria-labelledby="experience-heading">
+        <h2 id="experience-heading">Experience</h2>
+        {% for role in data["experience"] %}
+        <article class="experience-item">
+          <h3>{{ role["position"]|e }} <span>at {{ role["company"]|e }}</span></h3>
+          <p class="date">{{ role["duration"]|e }}</p>
+          <ul>
+            {% for responsibility in role["responsibilities"] %}
+            <li>{{ responsibility|e }}</li>
+            {% endfor %}
+          </ul>
+        </article>
+        {% endfor %}
+      </section>
+
+      <section aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
+        {% for item in data["education"] %}
+        <article class="education-item">
+          <h3>{{ item["degree"]|e }}</h3>
+          <p>{{ item["institution"]|e }}</p>
+          <p class="date">Graduated {{ item["graduation_year"]|e }}</p>
+        </article>
+        {% endfor %}
+      </section>
+
+      <section aria-labelledby="skills-heading">
+        <h2 id="skills-heading">Skills</h2>
+        <ul>
+          {% for skill in data["skills"] %}
+            {% if skill is mapping %}
+            {% for category, values in skill.items() %}
+          <li><strong>{{ category|e }}:</strong> {{ values|e }}</li>
+            {% endfor %}
+            {% else %}
+          <li>{{ skill|e }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section aria-labelledby="languages-heading">
+        <h2 id="languages-heading">Languages</h2>
+        <ul>
+          {% for language in data["languages"] %}
+          <li>{{ language|e }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
