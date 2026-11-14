@@ -13,20 +13,26 @@
 
 ## Setup
 
-Install the Python dependencies:
+Activate the project virtual environment, then install the Python dependencies:
+
+```sh
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+If you are not using the project venv, install the same requirements with:
 
 ```sh
 python -m pip install -r requirements.txt
 ```
 
-On macOS, install WeasyPrint's native Pango dependency first:
+On macOS, install the native Pango dependency if it is missing:
 
 ```sh
 brew install pango
-export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib"
 ```
 
-Run the build from the same shell session so WeasyPrint can locate Homebrew's native libraries.
+The build script automatically adds Homebrew's library folder to `DYLD_FALLBACK_LIBRARY_PATH` when it is available, so the PDF generation can run without a manual export step in the same shell.
 
 ## Generate the CV
 
@@ -37,6 +43,19 @@ python build.py
 ```
 
 The generated PDF is written to `output/cv.pdf`.
+
+## Streamlit YAML form
+
+The project now includes a simple form-based app that creates the same YAML structure as the example files without writing YAML by hand.
+
+Start it with:
+
+```sh
+source .venv/bin/activate
+streamlit run app.py
+```
+
+The app writes YAML files in the project root using the same lowercase `.yaml` naming pattern, shows a live preview, and can load an existing YAML file to edit it.
 
 ## Virtual environment activation
 

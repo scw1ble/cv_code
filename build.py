@@ -3,6 +3,26 @@ import subprocess
 import sys
 from pathlib import Path
 
+
+def ensure_python_dependencies() -> None:
+    missing = []
+    for package_name, import_name in (("PyYAML", "yaml"), ("Jinja2", "jinja2")):
+        try:
+            __import__(import_name)
+        except ModuleNotFoundError:
+            missing.append(package_name)
+
+    if missing:
+        raise SystemExit(
+            "Missing Python dependencies: "
+            + ", ".join(missing)
+            + ". Activate the project virtual environment and install them with: "
+            "'source .venv/bin/activate && python -m pip install -r requirements.txt'"
+        )
+
+
+ensure_python_dependencies()
+
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
@@ -38,10 +58,11 @@ ensure_homebrew_native_libraries()
 
 try:
     from weasyprint import HTML
-except OSError as exc:
+except (ImportError, OSError) as exc:
     raise SystemExit(
-        "WeasyPrint could not load its native libraries. "
-        "Install Homebrew's Pango dependency and re-run the script: "
+        "WeasyPrint could not load its native libraries or package is missing. "
+        "Install the project dependencies and, on macOS, Homebrew's Pango package: "
+        "'source .venv/bin/activate && python -m pip install -r requirements.txt' ; "
         "'brew install pango'"
     ) from exc
 
