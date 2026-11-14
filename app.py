@@ -142,6 +142,21 @@ def dump_yaml(data):
     return yaml.safe_dump(data, sort_keys=False, allow_unicode=True)
 
 
+# Clear personal data from a YAML file while preserving the CV keys, order, and value types.
+def clear_cv_yaml(file_path=PROJECT_DIR / "cv.yaml"):
+    empty_data = {
+        "name": "",
+        "phone": "",
+        "email": "",
+        "summary": "",
+        "languages": [],
+        "experience": [],
+        "education": [],
+        "skills": [],
+    }
+    file_path.write_text(dump_yaml(empty_data), encoding="utf-8")
+
+
 # Display a list of text inputs for a simple YAML list and support add/remove actions.
 def render_simple_list(section_key, label, placeholder):
     data = st.session_state["yaml_data"]
@@ -365,7 +380,8 @@ def main():
                     check=False,
                 )
                 if result.returncode == 0:
-                    st.success("The CV PDF was generated successfully.")
+                    clear_cv_yaml(PROJECT_DIR / "cv.yaml")
+                    st.success("The CV PDF was generated successfully, and cv.yaml was cleared.")
                 else:
                     st.error(result.stderr or result.stdout or "The build failed.")
             except FileNotFoundError:

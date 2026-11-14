@@ -2,17 +2,7 @@ name: ''
 phone: ''
 email: ''
 summary: ''
-languages:
-- 
-experience:
-- company: ''
-  position: ''
-  duration: ''
-  responsibilities:
-  - ''
-education:
-- institution: ''
-  degree: ''
-  graduation_year: ''
-skills:
-- ''
+languages: []
+experience: []
+education: []
+skills: []
