@@ -36,7 +36,7 @@ The build script automatically adds Homebrew's library folder to `DYLD_FALLBACK_
 
 ## Generate the CV
 
-Edit `example.yaml`, then run:
+Edit `cv.yaml`, then run:
 
 ```sh
 python build.py
@@ -56,9 +56,3 @@ streamlit run app.py
 ```
 
 The app writes YAML files in the project root using the same lowercase `.yaml` naming pattern, shows a live preview, and can load an existing YAML file to edit it.
-
-## Virtual environment activation
-
-```sh
-source .venv/bin/activate
-```

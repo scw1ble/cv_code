@@ -1,17 +1,17 @@
-name: ''
-phone: ''
-email: ''
-summary: ''
+name: Vasya
+phone: '+4783634884'
+email: ex@example.com
+summary: young professional
 languages:
 - English
-- French
+- Polish
 - Spanish
 experience:
-- company: ''
-  position: ''
-  duration: ''
+- company: LTD UAB
+  position: Intern
+  duration: 12-10-2026 - 12-12-2026
   responsibilities:
-  - ''
+  - filling out surveys
   - Collaborated with cross-functional teams to define project requirements.
   - Implemented automated testing procedures to improve code quality.
 - company: XYZ Ltd
@@ -22,11 +22,11 @@ experience:
   - Maintained cleanliness and organization of the café area.
   - Provided excellent customer service and handled transactions efficiently.
 education:
-- institution: ''
-  degree: ''
-  graduation_year: ''
+- institution: institute of education
+  degree: Bachelor
+  graduation_year: '2026'
 skills:
-- ''
+- Python
 - '{''Web Development'': ''HTML, CSS, React''}'
 - '{''Database Management'': ''SQL, MongoDB''}'
 - '{''Version Control'': ''Git, GitHub''}'

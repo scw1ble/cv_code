@@ -242,7 +242,7 @@ def render_form():
         "Output file name",
         value=st.session_state.get("output_name", "cv.yaml"),
         key="output_name_field",
-        help="Use a lowercase file name ending in .yaml, such as cv.yaml or example.yaml.",
+        help="Use a lowercase file name ending in .yaml, such as cv.yaml or cv.yaml.",
     )
     st.session_state["output_name"] = output_name
 
@@ -337,7 +337,7 @@ def main():
 
         load_path = st.text_input(
             "Existing YAML file to load",
-            value=str(PROJECT_DIR / "example.yaml"),
+            value=str(PROJECT_DIR / "cv.yaml"),
             help="This optional button fills the form from an existing YAML file.",
         )
         if st.button("Load existing YAML"):
@@ -353,8 +353,8 @@ def main():
             yaml_content = dump_yaml(st.session_state["yaml_data"])
             output_path.write_text(yaml_content, encoding="utf-8")
 
-            if output_path.name != "example.yaml":
-                (PROJECT_DIR / "example.yaml").write_text(yaml_content, encoding="utf-8")
+            if output_path.name != "cv.yaml":
+                (PROJECT_DIR / "cv.yaml").write_text(yaml_content, encoding="utf-8")
 
             try:
                 result = subprocess.run(

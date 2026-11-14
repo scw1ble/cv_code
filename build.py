@@ -74,7 +74,7 @@ output_dir.mkdir(exist_ok=True)
 loader = FileSystemLoader(project_dir / "web")
 env = Environment(loader=loader)
 
-with open(project_dir / "example.yaml", "r", encoding="utf-8") as file:
+with open(project_dir / "cv.yaml", "r", encoding="utf-8") as file:
     data = yaml.safe_load(file)
 
 template = env.get_template("template.html")

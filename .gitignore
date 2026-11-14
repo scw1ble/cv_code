@@ -2,6 +2,6 @@
 __pycache__/
 .DS_Store
 output/
-cv.yaml
+example.yaml
 tests/
 .agents/
