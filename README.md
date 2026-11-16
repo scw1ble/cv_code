@@ -44,6 +44,14 @@ python build.py
 
 The generated PDF is written to `output/cv.pdf`.
 
+The build script supports six visual styles: `classic` (default), `modern`, `elegant`, `minimal`, `creative`, and `compact`. For example:
+
+```sh
+python build.py --template-style modern
+```
+
+All six styles use the same CV fields and content structure.
+
 ## Streamlit YAML form
 
 The project now includes a simple form-based app that creates the same YAML structure as the example files without writing YAML by hand.
@@ -55,4 +63,4 @@ source .venv/bin/activate
 streamlit run app.py
 ```
 
-The app writes YAML files in the project root using the same lowercase `.yaml` naming pattern, shows a live preview, and can load an existing YAML file to edit it.
+The app writes YAML files in the project root using the same lowercase `.yaml` naming pattern, shows a live preview, lets you choose between six CV designs, and can load an existing YAML file to edit it.

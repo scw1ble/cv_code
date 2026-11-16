@@ -1,3 +1,4 @@
+import argparse
 import os
 import subprocess
 import sys
@@ -71,6 +72,20 @@ project_dir = Path(__file__).resolve().parent
 output_dir = project_dir / "output"
 output_dir.mkdir(exist_ok=True)
 
+
+# Parse the selected visual style, defaulting to the original classic CV design.
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate the CV PDF.")
+    parser.add_argument(
+        "--template-style",
+        choices=("classic", "modern", "elegant", "minimal", "creative", "compact"),
+        default="classic",
+        help="Choose one of the six CV designs.",
+    )
+    return parser.parse_args()
+
+
+args = parse_args()
 loader = FileSystemLoader(project_dir / "web")
 env = Environment(loader=loader)
 
@@ -78,7 +93,7 @@ with open(project_dir / "cv.yaml", "r", encoding="utf-8") as file:
     data = yaml.safe_load(file)
 
 template = env.get_template("template.html")
-rendered = template.render(data=data)
+rendered = template.render(data=data, template_style=args.template_style)
 pdf_path = output_dir / "cv.pdf"
 base_url = f"{output_dir.as_uri()}/"
 HTML(string=rendered, base_url=base_url).write_pdf(pdf_path)

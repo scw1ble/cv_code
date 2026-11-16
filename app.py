@@ -1,5 +1,6 @@
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 import streamlit as st
@@ -8,6 +9,14 @@ import yaml
 
 PROJECT_DIR = Path(__file__).resolve().parent
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+TEMPLATE_OPTIONS = {
+    "Classic": ("classic", "A traditional CV with restrained blue headings and clear spacing."),
+    "Modern": ("modern", "A bold navy header with a teal accent."),
+    "Elegant": ("elegant", "A centered serif design with warm gold details."),
+    "Minimal": ("minimal", "A spacious monochrome layout with simple section markers."),
+    "Creative": ("creative", "A distinctive purple header and highlighted section titles."),
+    "Compact": ("compact", "A tighter green-accented layout for fitting more on each page."),
+}
 
 
 # Build the default CV structure with the same keys, nesting, and order as the example YAML files.
@@ -350,6 +359,14 @@ def main():
         preview = dump_yaml(st.session_state["yaml_data"])
         st.code(preview, language="yaml")
 
+        st.subheader("Choose a CV template")
+        selected_template = st.selectbox(
+            "Template design",
+            options=list(TEMPLATE_OPTIONS),
+            key="selected_template",
+        )
+        st.caption(TEMPLATE_OPTIONS[selected_template][1])
+
         load_path = st.text_input(
             "Existing YAML file to load",
             value=str(PROJECT_DIR / "cv.yaml"),
@@ -373,7 +390,12 @@ def main():
 
             try:
                 result = subprocess.run(
-                    ["python", "build.py"],
+                    [
+                        sys.executable,
+                        "build.py",
+                        "--template-style",
+                        TEMPLATE_OPTIONS[selected_template][0],
+                    ],
                     cwd=PROJECT_DIR,
                     capture_output=True,
                     text=True,
@@ -381,7 +403,10 @@ def main():
                 )
                 if result.returncode == 0:
                     clear_cv_yaml(PROJECT_DIR / "cv.yaml")
-                    st.success("The CV PDF was generated successfully, and cv.yaml was cleared.")
+                    st.success(
+                        f"The {selected_template.lower()} CV PDF was generated successfully, "
+                        "and cv.yaml was cleared."
+                    )
                 else:
                     st.error(result.stderr or result.stdout or "The build failed.")
             except FileNotFoundError:

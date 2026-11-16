@@ -6,7 +6,7 @@
     <title>{{ data["name"]|e }} | CV</title>
     <link rel="stylesheet" href="../web/style.css">
   </head>
-  <body>
+  <body class="template-{{ template_style }}">
     <main class="cv">
       <header class="cv-header">
         <h1>{{ data["name"]|e }}</h1>
@@ -17,12 +17,12 @@
         </address>
       </header>
 
-      <section aria-labelledby="summary-heading">
+      <section class="summary-section" aria-labelledby="summary-heading">
         <h2 id="summary-heading">Professional Summary</h2>
         <p>{{ data["summary"]|e }}</p>
       </section>
 
-      <section aria-labelledby="experience-heading">
+      <section class="experience-section" aria-labelledby="experience-heading">
         <h2 id="experience-heading">Experience</h2>
         {% for role in data["experience"] %}
         <article class="experience-item">
@@ -37,7 +37,7 @@
         {% endfor %}
       </section>
 
-      <section aria-labelledby="education-heading">
+      <section class="education-section" aria-labelledby="education-heading">
         <h2 id="education-heading">Education</h2>
         {% for item in data["education"] %}
         <article class="education-item">
@@ -48,7 +48,7 @@
         {% endfor %}
       </section>
 
-      <section aria-labelledby="skills-heading">
+      <section class="skills-section" aria-labelledby="skills-heading">
         <h2 id="skills-heading">Skills</h2>
         <ul>
           {% for skill in data["skills"] %}
@@ -63,7 +63,7 @@
         </ul>
       </section>
 
-      <section aria-labelledby="languages-heading">
+      <section class="languages-section" aria-labelledby="languages-heading">
         <h2 id="languages-heading">Languages</h2>
         <ul>
           {% for language in data["languages"] %}
