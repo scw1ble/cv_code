@@ -17,6 +17,295 @@ TEMPLATE_OPTIONS = {
     "Creative": ("creative", "A distinctive purple header and highlighted section titles."),
     "Compact": ("compact", "A tighter green-accented layout for fitting more on each page."),
 }
+TEMPLATE_PREVIEW_COMPONENT = st.components.v2.component(
+    "cv_template_previews",
+    html='<div class="template-grid" role="group" aria-label="Choose a CV template"></div>',
+    css="""
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .template-card {
+      min-width: 0;
+      padding: 9px;
+      border: 1px solid var(--st-border-color, #d6d9dd);
+      border-radius: 10px;
+      background: var(--st-secondary-background-color, #f0f2f6);
+      color: var(--st-text-color, #262730);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .template-card:hover,
+    .template-card:focus-visible {
+      border-color: var(--st-primary-color, #ff4b4b);
+      outline: 2px solid var(--st-primary-color, #ff4b4b);
+      outline-offset: 1px;
+    }
+
+    .template-card[aria-pressed="true"] {
+      border: 2px solid var(--st-primary-color, #ff4b4b);
+      padding: 8px;
+    }
+
+    .template-name {
+      display: block;
+      margin-top: 8px;
+      font-weight: 650;
+    }
+
+    .template-description {
+      display: block;
+      min-height: 2.5em;
+      margin-top: 3px;
+      color: var(--st-text-color, #50545a);
+      font-size: 0.78rem;
+      line-height: 1.3;
+    }
+
+    .template-paper {
+      display: block;
+      height: 170px;
+      overflow: hidden;
+      padding: 13px 12px;
+      border-radius: 2px;
+      background: #fff;
+      box-shadow: 0 2px 6px #0002;
+      color: #252b33;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .paper-header {
+      display: block;
+      margin-bottom: 8px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid #cbd1d8;
+    }
+
+    .paper-name {
+      display: block;
+      width: 68%;
+      height: 8px;
+      margin-bottom: 5px;
+      background: #202a36;
+    }
+
+    .paper-contact {
+      display: block;
+      width: 83%;
+      height: 3px;
+      background: #8d969f;
+    }
+
+    .paper-section {
+      display: block;
+      margin-top: 7px;
+    }
+
+    .paper-heading {
+      display: block;
+      width: 40%;
+      height: 4px;
+      margin-bottom: 4px;
+      background: #34475b;
+    }
+
+    .paper-line {
+      display: block;
+      width: 94%;
+      height: 2px;
+      margin: 3px 0;
+      background: #d3d7dc;
+    }
+
+    .paper-line.short {
+      width: 63%;
+    }
+
+    .paper-bullet {
+      display: block;
+      width: 78%;
+      height: 2px;
+      margin: 3px 0 3px 5px;
+      background: #c3c9cf;
+    }
+
+    .template-paper--modern .paper-header {
+      margin: -13px -12px 8px;
+      padding: 15px 12px 8px;
+      border-bottom: 4px solid #42b4a5;
+      background: #18324b;
+    }
+
+    .template-paper--modern .paper-name,
+    .template-paper--modern .paper-contact {
+      background: #fff;
+    }
+
+    .template-paper--modern .paper-heading {
+      background: #176f74;
+    }
+
+    .template-paper--elegant {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .template-paper--elegant .paper-header {
+      text-align: center;
+      border-bottom: 3px double #aa8750;
+    }
+
+    .template-paper--elegant .paper-name {
+      width: 55%;
+      height: 7px;
+      margin-right: auto;
+      margin-left: auto;
+      background: #715629;
+    }
+
+    .template-paper--elegant .paper-contact {
+      width: 72%;
+      margin: auto;
+    }
+
+    .template-paper--elegant .paper-heading {
+      background: #aa8750;
+    }
+
+    .template-paper--minimal .paper-header {
+      padding-bottom: 3px;
+      border: 0;
+    }
+
+    .template-paper--minimal .paper-name {
+      width: 76%;
+      height: 10px;
+      background: #222;
+    }
+
+    .template-paper--minimal .paper-heading {
+      width: 43%;
+      height: 5px;
+      border-left: 3px solid #333;
+      background: #555;
+    }
+
+    .template-paper--creative .paper-header {
+      margin: -13px -12px 8px;
+      padding: 15px 12px 8px;
+      border: 0;
+      border-left: 5px solid #7541a6;
+      background: #f1e8fa;
+    }
+
+    .template-paper--creative .paper-name {
+      background: #4b2673;
+    }
+
+    .template-paper--creative .paper-heading {
+      width: 45%;
+      height: 6px;
+      background: #7541a6;
+    }
+
+    .template-paper--compact {
+      padding: 10px;
+    }
+
+    .template-paper--compact .paper-header {
+      margin-bottom: 5px;
+      padding-bottom: 4px;
+      border-bottom-color: #315a46;
+    }
+
+    .template-paper--compact .paper-name {
+      height: 7px;
+    }
+
+    .template-paper--compact .paper-section {
+      margin-top: 4px;
+    }
+
+    .template-paper--compact .paper-heading {
+      width: 35%;
+      height: 3px;
+      margin-bottom: 2px;
+      background: #315a46;
+    }
+
+    .template-paper--compact .paper-line,
+    .template-paper--compact .paper-bullet {
+      height: 1.5px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+    """,
+    js="""
+    export default function (component) {
+      const { data, parentElement, setStateValue } = component
+      const grid = parentElement.querySelector(".template-grid")
+      if (!grid) return
+
+      const currentStyle = data.selected ?? "classic"
+      grid.replaceChildren()
+
+      for (const template of data.templates) {
+        const card = document.createElement("button")
+        card.type = "button"
+        card.className = "template-card"
+        card.setAttribute("aria-pressed", String(template.id === currentStyle))
+        card.setAttribute(
+          "aria-label",
+          `${template.name} template. ${template.description}. Select template.`
+        )
+
+        const paper = document.createElement("span")
+        paper.className = `template-paper template-paper--${template.id}`
+        paper.setAttribute("aria-hidden", "true")
+        paper.innerHTML = `
+          <span class="paper-header">
+            <span class="paper-name"></span>
+            <span class="paper-contact"></span>
+          </span>
+          <span class="paper-section">
+            <span class="paper-heading"></span>
+            <span class="paper-line"></span>
+            <span class="paper-line short"></span>
+          </span>
+          <span class="paper-section">
+            <span class="paper-heading"></span>
+            <span class="paper-line"></span>
+            <span class="paper-bullet"></span>
+            <span class="paper-bullet"></span>
+          </span>
+          <span class="paper-section">
+            <span class="paper-heading"></span>
+            <span class="paper-line short"></span>
+          </span>
+          <span class="paper-section">
+            <span class="paper-heading"></span>
+            <span class="paper-line"></span>
+          </span>
+        `
+
+        const name = document.createElement("span")
+        name.className = "template-name"
+        name.textContent = template.name
+
+        const description = document.createElement("span")
+        description.className = "template-description"
+        description.textContent = template.description
+
+        card.append(paper, name, description)
+        card.onclick = () => setStateValue("selected", template.id)
+        grid.append(card)
+      }
+    }
+    """,
+)
 
 
 # Build the default CV structure with the same keys, nesting, and order as the example YAML files.
@@ -256,6 +545,35 @@ def render_education_block(index, item):
     )
 
 
+# Store the style chosen in the interactive preview cards before Streamlit reruns the app.
+def store_template_selection():
+    selected_style = st.session_state["cv_template_previews"].selected
+    valid_styles = {style for style, _description in TEMPLATE_OPTIONS.values()}
+    if selected_style in valid_styles:
+        st.session_state["selected_template_style"] = selected_style
+
+
+# Render clickable visual CV previews and return the selected template style.
+def render_template_picker():
+    templates = [
+        {"name": name, "id": style, "description": description}
+        for name, (style, description) in TEMPLATE_OPTIONS.items()
+    ]
+    selected_style = st.session_state.get("selected_template_style", "classic")
+    st.caption("Click a preview to select it.")
+    result = TEMPLATE_PREVIEW_COMPONENT(
+        key="cv_template_previews",
+        data={"templates": templates, "selected": selected_style},
+        default={"selected": selected_style},
+        on_selected_change=store_template_selection,
+    )
+    valid_styles = {style for style, _description in TEMPLATE_OPTIONS.values()}
+    if result.selected in valid_styles:
+        st.session_state["selected_template_style"] = result.selected
+        return result.selected
+    return selected_style if selected_style in valid_styles else "classic"
+
+
 # Render the full form. This is the main UI that matches the YAML structure exactly.
 def render_form():
     st.title("CV YAML Builder")
@@ -360,10 +678,10 @@ def main():
         st.code(preview, language="yaml")
 
         st.subheader("Choose a CV template")
-        selected_template = st.selectbox(
-            "Template design",
-            options=list(TEMPLATE_OPTIONS),
-            key="selected_template",
+        selected_style = render_template_picker()
+        selected_template = next(
+            name for name, (style, _description) in TEMPLATE_OPTIONS.items()
+            if style == selected_style
         )
         st.caption(TEMPLATE_OPTIONS[selected_template][1])
 
@@ -394,7 +712,7 @@ def main():
                         sys.executable,
                         "build.py",
                         "--template-style",
-                        TEMPLATE_OPTIONS[selected_template][0],
+                        selected_style,
                     ],
                     cwd=PROJECT_DIR,
                     capture_output=True,
