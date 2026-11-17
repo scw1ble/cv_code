@@ -8,7 +8,7 @@
   font-family: Arial, Helvetica, sans-serif;
   color: #252b33;
   background: #fff;
-  font-size: 12.5pt;
+  font-size: 11.5pt;
   line-height: 1.5;
 }
 
@@ -55,7 +55,7 @@ p {
 h1 {
   margin-bottom: 7px;
   color: #202a36;
-  font-size: 27pt;
+  font-size: 26pt;
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -63,7 +63,7 @@ h1 {
 
 address {
   color: #515c68;
-  font-size: 12pt;
+  font-size: 11pt;
   font-style: normal;
 }
 
@@ -81,7 +81,7 @@ h2 {
   padding-bottom: 4px;
   border-bottom: 1px solid #d9dee4;
   color: #34475b;
-  font-size: 14pt;
+  font-size: 13pt;
   font-weight: 600;
   letter-spacing: 0.035em;
 }
@@ -89,7 +89,7 @@ h2 {
 h3 {
   margin-bottom: 2px;
   color: #252b33;
-  font-size: 12.5pt;
+  font-size: 11.5pt;
   font-weight: 600;
 }
 
@@ -105,7 +105,7 @@ p {
 .date {
   margin-bottom: 7px;
   color: #5c6671;
-  font-size: 11.5pt;
+  font-size: 10.5pt;
 }
 
 .experience-item,
@@ -138,7 +138,7 @@ strong {
   }
 
   h1 {
-    font-size: 24pt;
+    font-size: 23pt;
   }
 }
 
@@ -211,7 +211,7 @@ body.template-minimal .cv-header {
 }
 
 body.template-minimal h1 {
-  font-size: 32pt;
+  font-size: 31pt;
   font-weight: 400;
 }
 
@@ -233,7 +233,7 @@ body.template-creative .cv-header {
 
 body.template-creative h1 {
   color: #4b2673;
-  font-size: 31pt;
+  font-size: 30pt;
 }
 
 body.template-creative h2 {
@@ -246,7 +246,7 @@ body.template-creative h2 {
 }
 
 body.template-compact {
-  font-size: 11.5pt;
+  font-size: 10.5pt;
   line-height: 1.35;
 }
 
@@ -264,14 +264,14 @@ body.template-compact section {
 }
 
 body.template-compact h1 {
-  font-size: 24pt;
+  font-size: 23pt;
 }
 
 body.template-compact h2 {
   margin-bottom: 6px;
   padding-bottom: 2px;
   color: #315a46;
-  font-size: 12.5pt;
+  font-size: 11.5pt;
 }
 
 body.template-compact .experience-item,
@@ -287,7 +287,7 @@ body.template-compact .education-item {
 body.template-classic {
   page: classic;
   font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
-  font-size: 14pt;
+  font-size: 13pt;
   line-height: 1.15;
 }
 
@@ -308,7 +308,7 @@ body.template-classic .cv-header {
 body.template-classic h1 {
   margin-bottom: 5pt;
   font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
-  font-size: 20pt;
+  font-size: 19pt;
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.15;
@@ -316,7 +316,7 @@ body.template-classic h1 {
 
 body.template-classic address {
   font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
-  font-size: 11pt;
+  font-size: 10pt;
 }
 
 body.template-classic section {
@@ -327,18 +327,21 @@ body.template-classic h2 {
   margin-bottom: 8pt;
   padding-bottom: 3pt;
   font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
-  font-size: 14.5pt;
+  font-size: 13.5pt;
   font-weight: 700;
   letter-spacing: 0;
 }
 
 body.template-classic h3,
 body.template-classic p,
-body.template-classic li,
-body.template-classic .date {
+body.template-classic li {
   font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
-  font-size: 14pt;
+  font-size: 13pt;
   line-height: 1.15;
+}
+
+body.template-classic .date {
+  font-size: 13pt;
 }
 
 body.template-classic h3 {
