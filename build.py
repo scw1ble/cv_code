@@ -82,6 +82,11 @@ def parse_args() -> argparse.Namespace:
         default="classic",
         help="Choose one of the six CV designs.",
     )
+    parser.add_argument(
+        "--fill-page",
+        action="store_true",
+        help="Spread the CV sections vertically across the printable page.",
+    )
     return parser.parse_args()
 
 
@@ -93,7 +98,11 @@ with open(project_dir / "cv.yaml", "r", encoding="utf-8") as file:
     data = yaml.safe_load(file)
 
 template = env.get_template("template.html")
-rendered = template.render(data=data, template_style=args.template_style)
+rendered = template.render(
+    data=data,
+    template_style=args.template_style,
+    fill_page=args.fill_page,
+)
 pdf_path = output_dir / "cv.pdf"
 base_url = f"{output_dir.as_uri()}/"
 HTML(string=rendered, base_url=base_url).write_pdf(pdf_path)

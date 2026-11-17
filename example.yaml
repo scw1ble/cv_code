@@ -9,14 +9,16 @@ languages:
 experience:
 - company: LTD UAB
   position: Intern
-  duration: 12-10-2026 - 12-12-2026
+  start_date: 10/2026
+  end_date: 12/2026
   responsibilities:
   - filling out surveys
   - Collaborated with cross-functional teams to define project requirements.
   - Implemented automated testing procedures to improve code quality.
 - company: XYZ Ltd
   position: Barista
-  duration: Jan 2025 - Aug 2026
+  start_date: 01/2025
+  end_date: 08/2026
   responsibilities:
   - Prepared and served beverages to customers in a fast-paced environment.
   - Maintained cleanliness and organization of the café area.
@@ -24,7 +26,9 @@ experience:
 education:
 - institution: institute of education
   degree: Bachelor
-  graduation_year: '2026'
+  start_date: 09/2022
+  end_date: 06/2026
+  responsibilities: []
 skills:
 - Python
 - '{''Web Development'': ''HTML, CSS, React''}'

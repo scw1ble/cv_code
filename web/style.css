@@ -8,7 +8,7 @@
   font-family: Arial, Helvetica, sans-serif;
   color: #252b33;
   background: #fff;
-  font-size: 10.5pt;
+  font-size: 12.5pt;
   line-height: 1.5;
 }
 
@@ -19,6 +19,18 @@
 body {
   margin: 0;
   background: #fff;
+}
+
+body.fill-page .cv {
+  display: flex;
+  min-height: calc(297mm - 36mm);
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.fill-page .cv-header,
+body.fill-page section {
+  margin-bottom: 0;
 }
 
 .cv {
@@ -43,7 +55,7 @@ p {
 h1 {
   margin-bottom: 7px;
   color: #202a36;
-  font-size: 25pt;
+  font-size: 27pt;
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -51,7 +63,7 @@ h1 {
 
 address {
   color: #515c68;
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: normal;
 }
 
@@ -69,7 +81,7 @@ h2 {
   padding-bottom: 4px;
   border-bottom: 1px solid #d9dee4;
   color: #34475b;
-  font-size: 12pt;
+  font-size: 14pt;
   font-weight: 600;
   letter-spacing: 0.035em;
 }
@@ -77,7 +89,7 @@ h2 {
 h3 {
   margin-bottom: 2px;
   color: #252b33;
-  font-size: 10.5pt;
+  font-size: 12.5pt;
   font-weight: 600;
 }
 
@@ -93,7 +105,7 @@ p {
 .date {
   margin-bottom: 7px;
   color: #5c6671;
-  font-size: 9.5pt;
+  font-size: 11.5pt;
 }
 
 .experience-item,
@@ -126,7 +138,7 @@ strong {
   }
 
   h1 {
-    font-size: 22pt;
+    font-size: 24pt;
   }
 }
 
@@ -199,7 +211,7 @@ body.template-minimal .cv-header {
 }
 
 body.template-minimal h1 {
-  font-size: 30pt;
+  font-size: 32pt;
   font-weight: 400;
 }
 
@@ -221,7 +233,7 @@ body.template-creative .cv-header {
 
 body.template-creative h1 {
   color: #4b2673;
-  font-size: 29pt;
+  font-size: 31pt;
 }
 
 body.template-creative h2 {
@@ -234,7 +246,7 @@ body.template-creative h2 {
 }
 
 body.template-compact {
-  font-size: 9.5pt;
+  font-size: 11.5pt;
   line-height: 1.35;
 }
 
@@ -252,17 +264,136 @@ body.template-compact section {
 }
 
 body.template-compact h1 {
-  font-size: 22pt;
+  font-size: 24pt;
 }
 
 body.template-compact h2 {
   margin-bottom: 6px;
   padding-bottom: 2px;
   color: #315a46;
-  font-size: 10.5pt;
+  font-size: 12.5pt;
 }
 
 body.template-compact .experience-item,
 body.template-compact .education-item {
   margin-bottom: 8px;
+}
+
+@page classic {
+  size: A4;
+  margin: 25.4mm 19.05mm;
+}
+
+body.template-classic {
+  page: classic;
+  font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
+  font-size: 14pt;
+  line-height: 1.15;
+}
+
+body.template-classic.fill-page .cv {
+  min-height: calc(297mm - 50.8mm);
+}
+
+body.template-classic .cv {
+  max-width: none;
+  padding: 0;
+}
+
+body.template-classic .cv-header {
+  margin-bottom: 18pt;
+  padding-bottom: 10pt;
+}
+
+body.template-classic h1 {
+  margin-bottom: 5pt;
+  font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
+  font-size: 20pt;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+body.template-classic address {
+  font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
+  font-size: 11pt;
+}
+
+body.template-classic section {
+  margin-bottom: 16pt;
+}
+
+body.template-classic h2 {
+  margin-bottom: 8pt;
+  padding-bottom: 3pt;
+  font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
+  font-size: 14.5pt;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+body.template-classic h3,
+body.template-classic p,
+body.template-classic li,
+body.template-classic .date {
+  font-family: "DenXian", "DengXian", "Microsoft YaHei", sans-serif;
+  font-size: 14pt;
+  line-height: 1.15;
+}
+
+body.template-classic h3 {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+body.template-classic h3 span {
+  font-weight: 400;
+}
+
+body.template-classic .experience-heading,
+body.template-classic .education-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12pt;
+}
+
+body.template-classic .experience-heading h3,
+body.template-classic .education-heading h3 {
+  flex: 1;
+}
+
+body.template-classic .date {
+  flex: 0 0 auto;
+  margin: 0;
+  color: #252b33;
+  text-align: right;
+  white-space: nowrap;
+}
+
+body.template-classic .experience-item,
+body.template-classic .education-item {
+  margin-bottom: 12pt;
+  break-inside: avoid;
+}
+
+body.template-classic ul {
+  margin-top: 3pt;
+  padding-left: 22pt;
+}
+
+body.template-classic li {
+  margin-bottom: 2pt;
+  padding-left: 1pt;
+}
+
+body.template-classic li::marker {
+  color: #252b33;
+}
+
+@media screen and (max-width: 600px) {
+  body.template-classic .experience-heading,
+  body.template-classic .education-heading {
+    gap: 6pt;
+  }
 }

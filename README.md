@@ -51,6 +51,7 @@ python build.py --template-style modern
 ```
 
 All six styles use the same CV fields and content structure.
+The Classic style follows a moderate-margin Word layout and requests the DenXian font family. If DenXian/DengXian is not installed on the system generating the PDF, WeasyPrint uses the configured sans-serif fallback.
 
 ## Streamlit YAML form
 
@@ -64,3 +65,11 @@ streamlit run app.py
 ```
 
 The app writes YAML files in the project root using the same lowercase `.yaml` naming pattern, shows a live preview, lets you choose between six CV designs, and can load an existing YAML file to edit it.
+Experience and education entries use separate `start_date` and `end_date` fields. Dates can be entered as `MM/YYYY`; use `Present` for an ongoing experience or education entry. When loading older YAML, the app maps experience `duration` ranges and education `graduation_year` values to the new fields.
+The **Fill page vertically** option is enabled by default and spreads CV sections over the printable page. To use the same layout from the command line, run:
+
+```sh
+python build.py --fill-page
+```
+
+This distributes available space between sections while preserving the chosen template's font sizes. If the CV content exceeds one page, it continues onto additional pages rather than shrinking text.

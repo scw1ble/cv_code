@@ -314,13 +314,13 @@ def build_default_data():
         "name": "",
         "phone": "",
         "email": "",
-        "summary": "",
         "languages": ["English"],
         "experience": [
             {
                 "company": "",
                 "position": "",
-                "duration": "",
+                "start_date": "",
+                "end_date": "",
                 "responsibilities": [""],
             }
         ],
@@ -328,7 +328,9 @@ def build_default_data():
             {
                 "institution": "",
                 "degree": "",
-                "graduation_year": "",
+                "start_date": "",
+                "end_date": "",
+                "responsibilities": [""],
             }
         ],
         "skills": [""],
@@ -355,7 +357,8 @@ def load_existing_data(file_path):
             {
                 "company": "",
                 "position": "",
-                "duration": "",
+                "start_date": "",
+                "end_date": "",
                 "responsibilities": [""],
             }
         ]
@@ -364,24 +367,34 @@ def load_existing_data(file_path):
             {
                 "institution": "",
                 "degree": "",
-                "graduation_year": "",
+                "start_date": "",
+                "end_date": "",
+                "responsibilities": [""],
             }
         ]
     if not isinstance(data["skills"], list) or not data["skills"]:
         data["skills"] = [""]
 
     for item in data["experience"]:
+        legacy_duration = str(item.pop("duration", ""))
+        legacy_start, separator, legacy_end = legacy_duration.partition(" - ")
         item.setdefault("company", "")
         item.setdefault("position", "")
-        item.setdefault("duration", "")
+        item.setdefault("start_date", legacy_start if separator else "")
+        item.setdefault("end_date", legacy_end if separator else "")
         item.setdefault("responsibilities", [""])
         if not isinstance(item["responsibilities"], list) or not item["responsibilities"]:
             item["responsibilities"] = [""]
 
     for item in data["education"]:
+        legacy_graduation_year = str(item.pop("graduation_year", ""))
         item.setdefault("institution", "")
         item.setdefault("degree", "")
-        item.setdefault("graduation_year", "")
+        item.setdefault("start_date", "")
+        item.setdefault("end_date", legacy_graduation_year)
+        item.setdefault("responsibilities", [""])
+        if not isinstance(item["responsibilities"], list) or not item["responsibilities"]:
+            item["responsibilities"] = [""]
 
     return data
 
@@ -398,9 +411,6 @@ def validate_data(data):
         errors.append("Email is required.")
     elif not EMAIL_PATTERN.match(data["email"].strip()):
         errors.append("Email must look like an address such as name@example.com.")
-    if not data.get("summary", "").strip():
-        errors.append("Summary is required.")
-
     for index, value in enumerate(data.get("languages", []), start=1):
         if not str(value).strip():
             errors.append(f"Language {index} cannot be empty.")
@@ -410,8 +420,10 @@ def validate_data(data):
             errors.append(f"Experience {index} company is required.")
         if not str(item.get("position", "")).strip():
             errors.append(f"Experience {index} position is required.")
-        if not str(item.get("duration", "")).strip():
-            errors.append(f"Experience {index} duration is required.")
+        if not str(item.get("start_date", "")).strip():
+            errors.append(f"Experience {index} start date is required.")
+        if not str(item.get("end_date", "")).strip():
+            errors.append(f"Experience {index} end date is required.")
         if not item.get("responsibilities"):
             errors.append(f"Experience {index} needs at least one responsibility.")
         for responsibility_index, responsibility in enumerate(item.get("responsibilities", []), start=1):
@@ -425,8 +437,17 @@ def validate_data(data):
             errors.append(f"Education {index} institution is required.")
         if not str(item.get("degree", "")).strip():
             errors.append(f"Education {index} degree is required.")
-        if not str(item.get("graduation_year", "")).strip():
-            errors.append(f"Education {index} graduation year is required.")
+        if not str(item.get("start_date", "")).strip():
+            errors.append(f"Education {index} start date is required.")
+        if not str(item.get("end_date", "")).strip():
+            errors.append(f"Education {index} end date is required.")
+        if not item.get("responsibilities"):
+            errors.append(f"Education {index} needs at least one responsibility.")
+        for responsibility_index, responsibility in enumerate(item.get("responsibilities", []), start=1):
+            if not str(responsibility).strip():
+                errors.append(
+                    f"Education {index} responsibility {responsibility_index} cannot be empty."
+                )
 
     for index, value in enumerate(data.get("skills", []), start=1):
         if not str(value).strip():
@@ -446,7 +467,6 @@ def clear_cv_yaml(file_path=PROJECT_DIR / "cv.yaml"):
         "name": "",
         "phone": "",
         "email": "",
-        "summary": "",
         "languages": [],
         "experience": [],
         "education": [],
@@ -461,7 +481,7 @@ def render_simple_list(section_key, label, placeholder):
     items = data.get(section_key, [])
 
     for index, item in enumerate(items):
-        col_text, col_remove = st.columns([5, 1])
+        col_text, col_remove = st.columns([5, 1], vertical_alignment="bottom")
         with col_text:
             data[section_key][index] = st.text_input(
                 f"{label} {index + 1}",
@@ -495,15 +515,22 @@ def render_experience_block(index, item):
         value=str(item.get("position", "")),
         key=f"experience_position_{index}",
     )
-    experience_item["duration"] = st.text_input(
-        "Duration",
-        value=str(item.get("duration", "")),
-        key=f"experience_duration_{index}",
+    experience_item["start_date"] = st.text_input(
+        "Start date",
+        value=str(item.get("start_date", "")),
+        key=f"experience_start_date_{index}",
+        placeholder="MM/YYYY",
+    )
+    experience_item["end_date"] = st.text_input(
+        "End date",
+        value=str(item.get("end_date", "")),
+        key=f"experience_end_date_{index}",
+        placeholder="MM/YYYY or Present",
     )
 
     responsibilities = item.get("responsibilities", [""])
     for responsibility_index, responsibility in enumerate(responsibilities):
-        col_text, col_remove = st.columns([5, 1])
+        col_text, col_remove = st.columns([5, 1], vertical_alignment="bottom")
         with col_text:
             experience_item["responsibilities"][responsibility_index] = st.text_input(
                 f"Responsibility {responsibility_index + 1}",
@@ -537,12 +564,39 @@ def render_education_block(index, item):
         value=str(item.get("degree", "")),
         key=f"education_degree_{index}",
     )
-    education_item["graduation_year"] = st.text_input(
-        "Graduation year",
-        value=str(item.get("graduation_year", "")),
-        key=f"education_year_{index}",
-        placeholder="2026",
+    education_item["start_date"] = st.text_input(
+        "Start date",
+        value=str(item.get("start_date", "")),
+        key=f"education_start_date_{index}",
+        placeholder="MM/YYYY",
     )
+    education_item["end_date"] = st.text_input(
+        "End date",
+        value=str(item.get("end_date", "")),
+        key=f"education_end_date_{index}",
+        placeholder="MM/YYYY or Present",
+    )
+    responsibilities = item.get("responsibilities", [""])
+    for responsibility_index, responsibility in enumerate(responsibilities):
+        col_text, col_remove = st.columns([5, 1], vertical_alignment="bottom")
+        with col_text:
+            education_item["responsibilities"][responsibility_index] = st.text_input(
+                f"Education responsibility {responsibility_index + 1}",
+                value=str(responsibility),
+                key=f"education_responsibility_{index}_{responsibility_index}",
+                placeholder="Describe an achievement, project, or relevant activity",
+            )
+        with col_remove:
+            if st.button(
+                "Remove",
+                key=f"remove_education_responsibility_{index}_{responsibility_index}",
+            ):
+                education_item["responsibilities"].pop(responsibility_index)
+                st.rerun()
+
+    if st.button("Add responsibility", key=f"add_education_responsibility_{index}"):
+        education_item["responsibilities"].append("")
+        st.rerun()
 
 
 # Store the style chosen in the interactive preview cards before Streamlit reruns the app.
@@ -560,7 +614,6 @@ def render_template_picker():
         for name, (style, description) in TEMPLATE_OPTIONS.items()
     ]
     selected_style = st.session_state.get("selected_template_style", "classic")
-    st.caption("Click a preview to select it.")
     result = TEMPLATE_PREVIEW_COMPONENT(
         key="cv_template_previews",
         data={"templates": templates, "selected": selected_style},
@@ -592,12 +645,6 @@ def render_form():
     data["name"] = st.text_input("Name", value=str(data.get("name", "")), key="field_name")
     data["phone"] = st.text_input("Phone", value=str(data.get("phone", "")), key="field_phone")
     data["email"] = st.text_input("Email", value=str(data.get("email", "")), key="field_email")
-    data["summary"] = st.text_area(
-        "Summary",
-        value=str(data.get("summary", "")),
-        key="field_summary",
-        height=150,
-    )
 
     st.subheader("Languages")
     render_simple_list("languages", "Language", "English")
@@ -613,7 +660,8 @@ def render_form():
             {
                 "company": "",
                 "position": "",
-                "duration": "",
+                "start_date": "",
+                "end_date": "",
                 "responsibilities": [""],
             }
         )
@@ -630,7 +678,9 @@ def render_form():
             {
                 "institution": "",
                 "degree": "",
-                "graduation_year": "",
+                "start_date": "",
+                "end_date": "",
+                "responsibilities": [""],
             }
         )
         st.rerun()
@@ -684,6 +734,12 @@ def main():
             if style == selected_style
         )
         st.caption(TEMPLATE_OPTIONS[selected_template][1])
+        fill_page = st.checkbox(
+            "Fill page vertically",
+            value=True,
+            help="Spread the CV sections across the printable page to avoid unused space at the bottom.",
+            key="fill_page",
+        )
 
         load_path = st.text_input(
             "Existing YAML file to load",
@@ -707,13 +763,16 @@ def main():
                 (PROJECT_DIR / "cv.yaml").write_text(yaml_content, encoding="utf-8")
 
             try:
+                build_command = [
+                    sys.executable,
+                    "build.py",
+                    "--template-style",
+                    selected_style,
+                ]
+                if fill_page:
+                    build_command.append("--fill-page")
                 result = subprocess.run(
-                    [
-                        sys.executable,
-                        "build.py",
-                        "--template-style",
-                        selected_style,
-                    ],
+                    build_command,
                     cwd=PROJECT_DIR,
                     capture_output=True,
                     text=True,

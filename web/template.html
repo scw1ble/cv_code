@@ -6,7 +6,7 @@
     <title>{{ data["name"]|e }} | CV</title>
     <link rel="stylesheet" href="../web/style.css">
   </head>
-  <body class="template-{{ template_style }}">
+  <body class="template-{{ template_style }}{% if fill_page %} fill-page{% endif %}">
     <main class="cv">
       <header class="cv-header">
         <h1>{{ data["name"]|e }}</h1>
@@ -17,17 +17,14 @@
         </address>
       </header>
 
-      <section class="summary-section" aria-labelledby="summary-heading">
-        <h2 id="summary-heading">Professional Summary</h2>
-        <p>{{ data["summary"]|e }}</p>
-      </section>
-
       <section class="experience-section" aria-labelledby="experience-heading">
         <h2 id="experience-heading">Experience</h2>
         {% for role in data["experience"] %}
         <article class="experience-item">
-          <h3>{{ role["position"]|e }} <span>at {{ role["company"]|e }}</span></h3>
-          <p class="date">{{ role["duration"]|e }}</p>
+          <div class="experience-heading">
+            <h3>{{ role["position"]|e }} <span>at {{ role["company"]|e }}</span></h3>
+            <p class="date">{{ role["start_date"]|e }} - {{ role["end_date"]|e }}</p>
+          </div>
           <ul>
             {% for responsibility in role["responsibilities"] %}
             <li>{{ responsibility|e }}</li>
@@ -40,11 +37,17 @@
       <section class="education-section" aria-labelledby="education-heading">
         <h2 id="education-heading">Education</h2>
         {% for item in data["education"] %}
-        <article class="education-item">
-          <h3>{{ item["degree"]|e }}</h3>
-          <p>{{ item["institution"]|e }}</p>
-          <p class="date">Graduated {{ item["graduation_year"]|e }}</p>
-        </article>
+          <article class="education-item">
+            <div class="education-heading">
+              <h3><strong>{{ item["institution"]|e }}</strong> - {{ item["degree"]|e }}</h3>
+              <p class="date">{{ item["start_date"]|e }} - {{ item["end_date"]|e }}</p>
+            </div>
+            <ul>
+              {% for responsibility in item["responsibilities"] %}
+              <li>{{ responsibility|e }}</li>
+              {% endfor %}
+            </ul>
+          </article>
         {% endfor %}
       </section>
 
@@ -57,7 +60,7 @@
           <li><strong>{{ category|e }}:</strong> {{ values|e }}</li>
             {% endfor %}
             {% else %}
-          <li>{{ skill|e }}</li>
+          <li>{% if template_style == "classic" %}<strong>{{ skill|e }}</strong>{% else %}{{ skill|e }}{% endif %}</li>
             {% endif %}
           {% endfor %}
         </ul>
